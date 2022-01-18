@@ -2,8 +2,7 @@
 include 'UserDetails.php';
     if(isset($_POST['submit'])) {
        $sign = new UserDetails();
-       $sign -> setSignInfo($_POST['sign_info']);
-       $sign->customerSign();
+       $sign->customerSign($_POST);
    }
 ?>
 
@@ -28,8 +27,15 @@ include 'UserDetails.php';
 <body>
     <div class="container text-center mt-5">
         <form action="" method="POST">
-            <label class="mt-2" for="">Phone number or email</label><br>
-            <input class="mt-2" type="text" name="sign_info" placeholder="E-mail or Phone" ><br>
+
+            <label class="mt-2" for="">First Name</label><br>
+            <input class="mt-2" type="text"  name='first_name' placeholder="First Name" ><br>
+
+            <label class="mt-2" for="">Last Name</label><br>
+            <input class="mt-2" type="text"  name='last_name' placeholder="Last Name" ><br>
+
+            <label class="mt-2" for="">E-mail</label><br>
+            <input class="mt-2" type="text" name="sign_info" placeholder="E-mail" ><br>
 
             <input class="mt-2" type="submit" name="submit" value="Sign up">
         </form>
