@@ -375,65 +375,12 @@ form fieldset label {
 .slider-for {
     margin-bottom: 25px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.fa-user:before {
+    color:#c36587  !important;
+}
+.fa-shopping-cart:before {
+    color:#c36587  !important;
+}
 
 
 
