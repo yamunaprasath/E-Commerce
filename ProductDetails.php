@@ -597,6 +597,28 @@ class ProductDetails extends UserDetails
          return $this->description;
     }
 
+    /**
+     * to set bestDeals
+     *
+     * @param string bestDeals
+     * @return void
+     */
+    public function setBestDeals(string $bestDeals): void
+    {
+        $this->bestDeals = $bestDeals;
+    }
+
+    /**
+     * to get bestDeals
+     *
+     * @param string bestDeals
+     * @return void
+     */
+    public function getBestDeals(): string
+    {
+        return $this->bestDeals;
+    }
+
     
     
 /**
@@ -628,6 +650,7 @@ class ProductDetails extends UserDetails
            $display->setProductPrice($row['product_price']);
            $display->setImage($row['image']);
            $display->setDescription($row['description']);
+           $display->setBestDeals($row['best_deal']);
            $allDisplayDetails[]= $display;
         }
          return $allDisplayDetails;
@@ -679,6 +702,7 @@ class ProductDetails extends UserDetails
                 $home->setColor($row['color']);
                 $home->setImage($row['image']);
                 $home->setDescription($row['description']);
+                $home->setBestDeals($row['best_deal']);
                 $table[] = $home;
             }
                 return $table;

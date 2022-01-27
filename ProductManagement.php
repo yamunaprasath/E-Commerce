@@ -27,12 +27,16 @@ session_start();
     <th>Stock</th>
     <th>Product Price</th>
     <th>image</th>
+    <th>Best Deals</th>
 
 <?php
   foreach ($result as $data) {
     
 ?>
-<?php $images = explode(",", $data->getImage());?>
+<?php 
+    $images = explode(",", $data->getImage());
+    $deals = explode(",", $data->getBestDeals());
+?>
   <tr>
     <td> <?php echo $data->getId();?> </td> 
     <td> <?php echo $data->getUserId(); ?> </td>
@@ -42,11 +46,18 @@ session_start();
     <td> <?php echo $data->getStock(); ?> </td> 
     <td> <?php echo $data->getProductPrice(); ?> </td> 
     <td>
-<?php
-  foreach($images as $image){
-  echo"<img src='uploads/$image' width ='100px' height = '100px'>";
-  }
-?>
+      <?php
+        foreach($images as $image){
+        echo"<img src='uploads/$image' width ='100px' height = '100px'>";
+        }
+      ?>
+    </td>
+    <td> 
+      <?php
+        foreach($deals as $best){
+        echo"<img src='uploads/$best' width ='80px' height ='100px'>";
+        }
+      ?>
     </td>
    
   </tr>

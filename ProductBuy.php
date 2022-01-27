@@ -103,6 +103,8 @@
                     <div  style="margin: 10px;">sizechart</div>
                 </div>
 
+                <div style="color:blue;"><?php echo "Product Size Available:" . $result->getSize();?></div>
+
                 <form action="" method='POST' name="buy">
 
                     <fieldset class="js product-form__input size">
@@ -120,6 +122,8 @@
                         <label class="square"> L </label>
                     
                     </fieldset>
+
+                    <div style="color:blue;"><?php echo "Product Color Available:" . $result->getColor();?></div>
 
                     <fieldset class="js product-form__input color">
 
@@ -232,7 +236,8 @@
     <div class="container">
         <div class="">
             <form action="" method='POST' name='writereview'>
-                <input class="form-control-lg" type="text" name='username' placeholder='User Name*'>
+
+                <input class="form-control-lg mb-2" type="text" name='username' placeholder='User Name*'>
                 
                 <input  class="form-control-lg" type="email" name="email" placeholder='Email*'>
         

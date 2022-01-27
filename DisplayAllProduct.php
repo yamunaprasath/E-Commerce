@@ -54,12 +54,17 @@ include "ProductDetails.php";
     <th>Color</th>
     <th>Size</th>
     <th>Description</th>
+    <th>images</th>
+    <th>Best deals</th>
 
   <?php
     foreach ($result as $data) {
  
   ?>
-  <?php $images = explode(",", $data->getImage()); ?>
+  <?php 
+    $images = explode(",", $data->getImage());
+    $deals = explode(",", $data->getBestDeals());
+  ?>
     <tr>
       <td> <?php echo $data->getId(); ?> </td>
       <td> <?php echo $data->getUserId(); ?> </td> 
@@ -80,6 +85,15 @@ include "ProductDetails.php";
     }
   ?>
     </td>
+
+    <td> 
+  <?php
+    foreach($deals as $best){
+    echo"<img src='uploads/$best' width ='80px' height ='100px'>";
+    }
+  ?>
+    </td>
+
     <td><a href="ProductUploadPage.php?Id=<?php echo $data->getId();?>">Edit</a></td>
     <td><a  name='delete' href="DisplayAllProduct.php?id=<?php echo $data->getId(); ?>">Delete</a></td>
       

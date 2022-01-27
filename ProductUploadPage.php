@@ -19,20 +19,21 @@ if(isset($_POST['submit'])) {
     //  die;
     // $image = $_FILES['images']['name'];
     // $tempName= $_FILES['images']['name'];
-    $images = [];
-    foreach($_FILES['images']['name'] as $key=>$value){
-        // echo  "$key=$value.<br>";
-        // die;
-        $image = "img-". $value;
+    // $images = [];
+    // $best_deal= [];
+    // foreach($_FILES['images']['name'] as $key=>$value){
+    //     // echo  "$key=$value.<br>";
+    //     // die;
+    //     $image = "img-". $value;
          
-        move_uploaded_file($_FILES ['images'] ['tmp_name'] [$key], 'uploads/'. $image);
-        $images[] = $image;
+    //     move_uploaded_file($_FILES ['images'] ['tmp_name'] [$key], 'uploads/'. $image);
+    //     $images[] = $image;
         
-    }
-    $uploadpictures = implode(',', $images);
+    // }
+    // $uploadpictures = implode(',', $images);
 
     $picture = new UserDetails();    
-    $picture->addProduct($uploadpictures, $_POST); 
+    $picture->addProduct($_FILES , $_POST); 
       
 }
 
@@ -90,11 +91,11 @@ if(isset($_GET['Id'])) {
         <input type = 'text' name="discount"  style = "margin:20px" value= "<?php echo  isset($_GET['Id']) ? $result->getDiscount() : ""?>"><br>
 
         <label for="" style = "margin:20px">Select size</label><br>
-        <select style = "margin:20px" name ="size"   value= "<?php echo  isset($_GET['Id']) ? $result->getColor() : ""?>" >
+        <select style = "margin:20px" name ="size" value= "<?php echo  isset($_GET['Id']) ? $result->getColor() : ""?>" >
             <option value='Small'>Small</option>
             <option value='Medium'>Medium</option>
             <option value='Large'>Large</option>
-             <option value='' selected>Select Size</option>
+            <option value='' selected>Select Size</option>
         </select><br>
 
         <label for="" style = "margin:20px">Select color</label><br>
@@ -115,6 +116,9 @@ if(isset($_GET['Id'])) {
         
         <label style = "margin:20px">Product Image</label><br>
         <input type="file" name="images[]" multiple="multiple" accept="image/*" style = "margin:20px" /><br><br>
+
+        <label style = "margin:20px">Best Deal Of Product</label><br>
+        <input type="file" name="best_deal[]" multiple="multiple" accept="image/*" style = "margin:20px" /><br><br>
     
 
 <?php

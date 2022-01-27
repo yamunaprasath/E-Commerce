@@ -299,25 +299,31 @@ class UserDetails extends DatabaseConnection
         $login = $this->conn->query($sql);
 
         $row = mysqli_fetch_array($login); 
-        print_r($row);
-        die;
+        // print_r($row);
+        // die;
 
-        if($row['role']=== 0){
+        // if($row > 0){
+        //     header('Location:DisplayAllProduct.php');
+        // } else {
+        //     echo "no";
+        // }
+
+        if($row['role']== 0 && $row > 0){
             $userName = $row['first_name'];
             $userId = $row['id'];
             $_SESSION['id'] = $userId; 
             $_SESSION['name'] =  $userName;
 
-            header("Location:DisplayAllProduct.php");
+            header('Location:DisplayAllProduct.php');
 
         } 
-        if($row['role']=== 1){
+        if($row['role']== 1 && $row > 0){
             $userName = $row['first_name'];
             $userId = $row['id'];
             $_SESSION['id'] = $userId; 
             $_SESSION['name'] =  $userName;
 
-            header("ProductManagement.php");
+            header('Location:ProductManagement.php');
         } else{
             echo 'Incorrect Username or Password';
         }
@@ -329,9 +335,8 @@ class UserDetails extends DatabaseConnection
      * @param string $description
      * @return void
      */
-    public function addProduct( string $image, array $details)
-    {
-        
+    public function addProduct( $image, $details)
+    {   
         $Id= $_SESSION['id'];
          
         $productType = $details['product_type'];
@@ -342,10 +347,32 @@ class UserDetails extends DatabaseConnection
         $productDiscount = $details['discount'];
         $productSize =  $details['size'];
         $productColor=  $details['color']; 
-        $description=  $details['description'];   
+        $description=  $details['description']; 
+        
+        $images = [];
+        $best_deal= [];
+        foreach($_FILES['images']['name'] as $key=>$value){
+            //  echo  "$key=$value.<br>";
+            $image = "img-". $value;
+             
+            move_uploaded_file($_FILES ['images'] ['tmp_name'] [$key], 'uploads/'. $image);
+            $images[] = $image;   
+        }
+        
+
+        foreach($_FILES['best_deal']['name'] as $key=>$value){
+            //  echo  "$key=$value.<br>";
+            $deals = "img-". $value;
+             
+            move_uploaded_file($_FILES ['best_deal'] ['tmp_name'] [$key], 'uploads/'. $deals);
+            $best_deal[] = $deals;
+        }
+
+        $pictures = implode(',', $images);
+        $bestDeals =  implode(',', $best_deal);
  
-        $query = "INSERT INTO  product (user_id,product_type,product_name,vendor,stock,discount,size,color,product_price,image,description)  
-                VALUES ('$Id', '$productType', '$productName','$vendor','$stock','$productDiscount','$productSize','$productColor','$productPrice', '$image','$description')";
+        $query = "INSERT INTO  product (user_id,product_type,product_name,vendor,stock,discount,size,color,product_price,image,description,best_deal)  
+                VALUES ('$Id', '$productType', '$productName','$vendor','$stock','$productDiscount','$productSize','$productColor','$productPrice', '$image','$description',' $bestDeals')";
 
         if($this->conn->query($query)){
             header('Location:DisplayAllProduct.php');
@@ -403,9 +430,13 @@ class UserDetails extends DatabaseConnection
      * return void
      */
 
-    public function customerSign()
+    public function customerSign($info)
     {  
-        $sql = "INSERT INTO customer (sign_info) VALUES ('$this->signInfo')";
+        $fname = $info['first_name'];
+        $lname = $info['last_name'];
+        $mail = $info['sign_info'];
+
+        $sql = "INSERT INTO customer (first_name, last_name, sign_info) VALUES ('$fname','$lname', '$mail')";
 
             if ($this->conn->query($sql) === TRUE) {
                 echo 'sucessfully added';
